@@ -1,29 +1,28 @@
 module Mandrill
     module Client
         class Users < Call
-            def initialize(api_key, adress = ROOT_URL)
-                super(api_key, adress)
-                @rsrc_url = 'users'
+            def initialize(key)
+                super(key)
             end
 
             def info
-                @url = "info"
-                send
+                launch('info')
             end
 
             def ping
-                @url = "ping"
-                base_send.body
+                base_launch('ping').body
             end
 
             def ping2
-                @url = "ping2"
-                send
+                launch('ping2')
             end
 
             def senders
-                @url = "senders"
-                send
+                launch('senders')
+            end
+
+            def rsrc_url
+                'users'
             end
         end
     end
