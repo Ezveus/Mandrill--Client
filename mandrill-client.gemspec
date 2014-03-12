@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Mandrill::Client::VERSION
   spec.authors       = ["Matthieu \"Ezveus\" Ciappara"]
   spec.email         = ["ciappam@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{Mandrill::Client aims to provide easy access to Mandrill API}
+  spec.summary       = %q{Mandrill::Client aims to provide easy access to Mandrill API}
+  spec.homepage      = "https://github.com/Ezveus/Mandrill--Client"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

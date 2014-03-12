@@ -1,6 +1,6 @@
 # Mandrill::Client
 
-TODO: Write a gem description
+Mandrill::Client aims to provide easy access to Mandrill API
 
 ## Installation
 
