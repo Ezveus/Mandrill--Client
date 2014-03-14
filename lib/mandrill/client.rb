@@ -37,6 +37,12 @@ module Mandrill
             JSON.dump(to_hash)
         end
     end
+
+    class Error < RuntimeError
+        def initialize(msg = nil)
+            super(msg)
+        end
+    end
   end
 end
 

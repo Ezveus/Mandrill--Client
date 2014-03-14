@@ -2,6 +2,14 @@ module Mandrill
     module Client
         using Refinements if Client.ruby_version21?
 
+        class MailError < Error
+            attr_reader :errors
+
+            def initialize(errors)
+                super(errors)
+            end
+        end
+
         class Mail
             include Commons
             EMAIL_FMT = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -12,6 +20,14 @@ module Mandrill
             attr_reader :signing_domain, :return_path_domain, :merge, :global_merge_vars, :merge_vars, :tags
             attr_reader :subaccount, :google_analytics_domains, :google_analytics_campaign, :metadata
             attr_reader :recipient_metadata, :attachments, :images
+
+            def errors_to_s errors
+                str = "Mail is invalid:"
+                errors.each do |error|
+                    str += "\n\t#{error}"
+                end
+                str
+            end
 
             def initialize(args = {})
                 @errors = []
@@ -59,7 +75,11 @@ module Mandrill
                 check_attachments unless @attachments.nil?
                 check_images unless @images.nil?
 
-                remove_instance_variable :@errors if @errors.blank?
+                if @errors.blank?
+                    remove_instance_variable :@errors
+                else
+                    raise MailError, errors_to_s(@errors)
+                end
             end
 
             def add_missing_field(field)
