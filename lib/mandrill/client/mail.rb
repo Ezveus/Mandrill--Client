@@ -114,7 +114,8 @@ module Mandrill
                 end
                 @to.each do |recipient|
                     if check_type(recipient, Hash)
-                        recipient[:email] = check_format(recipient[:email].to_s, EMAIL_FMT) || nil
+                        recipient[:email] = check_format(recipient[:email].to_s, EMAIL_FMT) unless recipient[:email].blank?
+                        recipient[:email] = check_format(recipient[:address].to_s, EMAIL_FMT) if recipient[:email].blank? && !recipient[:address].blank?
                         if recipient[:email].blank?
                             @errors << "A recipient doesn't have an email address"
                         end
